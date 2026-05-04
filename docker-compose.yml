@@ -1,0 +1,14 @@
+services:
+  web:
+    build: .
+    image: nexa-propiedades:prod
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nexa-propiedades.rule=Host(`nexa-propiedades.paragu-ai.com`)"
+      - "traefik.http.routers.nexa-propiedades.entrypoints=websecure"
+      - "traefik.http.services.nexa-propiedades.loadbalancer.server.port=3000"
